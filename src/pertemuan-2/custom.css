@@ -1,0 +1,75 @@
+/* Styling Lucu & Playful */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif; /* Font bulat dan lucu */
+    background-color: #fff9e6; /* Kuning pastel lembut */
+    background-image: radial-gradient(#ffcfdf 1px, transparent 1px);
+    background-size: 20px 20px; /* Pola titik-titik imut */
+    color: #4a4a4a;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+/* Container utama seperti roti/awan */
+.card {
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 30px; /* Sangat bulat */
+    border: 4px solid #5d5d5d; /* Outline tebal ala kartun */
+    box-shadow: 10px 10px 0px #ff85a2; /* Bayangan solid yang unik */
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02) rotate(-1deg); /* Efek goyang saat disentuh */
+}
+
+/* Header yang ceria */
+h1 {
+    color: #ff5c8a;
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: 0;
+    text-shadow: 2px 2px 0px #ffe0e9;
+}
+
+/* Paragraf */
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Garis pemisah yang unik (Putus-putus) */
+hr {
+    border: none;
+    border-top: 5px dashed #ffcfdf;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+/* Greeting / Small text */
+small {
+    display: inline-block;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+    background: #7bd3ea; /* Biru muda cerah */
+    padding: 10px;
+    border-radius: 15px;
+    transform: rotate(1deg);
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+/* Bonus: Efek dekoratif */
+.card::before {
+    content: '✨';
+    float: right;
+    font-size: 24px;
+}
