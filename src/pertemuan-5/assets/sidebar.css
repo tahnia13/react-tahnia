@@ -1,0 +1,29 @@
+/* Warna custom */
+.text-hijau {
+    color: #10b981;
+}
+
+.bg-hijau {
+    background-color: #10b981;
+}
+
+.hover\:text-hijau:hover {
+    color: #10b981;
+}
+
+.hover\:bg-hijau:hover {
+    background-color: #10b981;
+}
+
+.hover\:bg-green-200:hover {
+    background-color: #bbf7d0;
+}
+
+.hover\:font-extrabold:hover {
+    font-weight: 800;
+}
+
+/* Font Poppins */
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}

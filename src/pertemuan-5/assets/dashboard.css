@@ -1,0 +1,107 @@
+/* Dashboard Grid Layout */
+#dashboard-grid {
+    padding: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* Responsive: sm (640px) → 2 kolom */
+@media (min-width: 640px) {
+    #dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive: md (768px) → 4 kolom */
+@media (min-width: 768px) {
+    #dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* Card Base Style - Semua Card */
+#count-orders,
+#count-delivered,
+#count-canceled,
+#count-revenue {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect untuk semua card */
+#count-orders:hover,
+#count-delivered:hover,
+#count-canceled:hover,
+#count-revenue:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Info Container - Semua */
+#orders-info,
+#delivered-info,
+#canceled-info,
+#revenue-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Base Style Icon - Semua icon */
+#orders-icon,
+#delivered-icon,
+#canceled-icon,
+#revenue-icon {
+    border-radius: 9999px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    color: white;
+}
+
+/* Warna Background Icon per Card */
+#orders-icon {
+    background-color: #10b981; /* Hijau untuk Orders */
+}
+
+#delivered-icon {
+    background-color: #3b82f6; /* Biru untuk Delivered */
+}
+
+#canceled-icon {
+    background-color: #ef4444; /* Merah untuk Canceled */
+}
+
+#revenue-icon {
+    background-color: #f59e0b; /* Kuning/Orange untuk Revenue */
+}
+
+/* Angka Count - Semua */
+#orders-count,
+#delivered-count,
+#canceled-count,
+#revenue-amount {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* Label Text - Semua */
+#orders-text,
+#delivered-text,
+#canceled-text,
+#revenue-text {
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
