@@ -1,19 +1,23 @@
-import { Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Orders from "./pages/Orders";
-import Customers from "./pages/Customers";
-import FormOrder from "./pages/FormOrder";
-import FormCustomer from "./pages/FormCustomer";
-import ErrorPage from "./components/ErrorPage";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import Forgot from "./pages/auth/Forgot";
 import "./assets/tailwind.css";
+import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import Loading from "./components/Loading";
+import React, { Suspense } from "react";
 
 function App() {
+  const Dashboard = React.lazy(() => import("./pages/Dashboard"))
+  const FormOrder = React.lazy(() => import("./pages/FormOrder"))
+  const Orders = React.lazy(() => import("./pages/Orders"))
+  const Customers = React.lazy(() => import("./pages/Customers"))
+  const FormCustomer = React.lazy(() => import("./pages/FormCustomer"))
+  const ErrorPage = React.lazy(() => import("./components/ErrorPage"))
+  const Login = React.lazy(() => import("./pages/auth/Login"))
+  const Register = React.lazy(() => import("./pages/auth/Register"))
+  const Forgot = React.lazy(() => import("./pages/auth/Forgot"))
+  
   return (
+    <Suspense fallback={<Loading />}>
     <Routes>
       <Route element={<MainLayout />}>
 
@@ -74,7 +78,8 @@ function App() {
             <Route path="/forgot" element={<Forgot/>} />
         </Route>
     </Routes>
+    </Suspense>
   );
-}
+} 
 
 export default App;
