@@ -5,20 +5,24 @@ import Customers from "./pages/Customers";
 import FormOrder from "./pages/FormOrder";
 import FormCustomer from "./pages/FormCustomer";
 import ErrorPage from "./components/ErrorPage";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Forgot from "./pages/auth/Forgot";
 import "./assets/tailwind.css";
 import MainLayout from "./layouts/MainLayout";
-
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/add-orders" element={<FormOrder />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/add-customers" element={<FormCustomer />} />
-      </Route>
+
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/add-orders" element={<FormOrder />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/add-customers" element={<FormCustomer />} />
+      
 
       {/* Halaman Error Testing */}
       <Route
@@ -63,6 +67,12 @@ function App() {
           />
         }
       />
+      </Route>
+      <Route element={<AuthLayout/>}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/forgot" element={<Forgot/>} />
+        </Route>
     </Routes>
   );
 }
