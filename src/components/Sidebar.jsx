@@ -6,11 +6,14 @@
   FaExclamationTriangle,
   FaLock,
   FaBan,
+  FaBox, // 1. TAMBAHKAN ICON FaBox
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom"; // 2. TAMBAHKAN Link DAN useLocation
 
 export default function Sidebar() {
-  // Fungsi styling untuk menu NavLink (tetap menggunakan logic milikmu)
+  const location = useLocation(); // 3. DEFINISIKAN location AGAR BISA DIGUNAKAN
+
+  // Fungsi styling untuk menu NavLink
   const menuClass = ({ isActive }) =>
     `flex cursor-pointer items-center rounded-xl p-4 space-x-2 transition-all duration-200
         ${
@@ -64,10 +67,17 @@ export default function Sidebar() {
               <span>Customers</span>
             </NavLink>
           </li>
+          {/* Menu Products dipindahkan ke dalam list agar rapi */}
+          <li>
+            <NavLink to="/products" className={menuClass}>
+              <FaBox className="text-xl" />
+              <span>Products</span>
+            </NavLink>
+          </li>
         </ul>
       </div>
 
-      {/* Section Error Testing (Sesuai Instruksi Latihan) */}
+      {/* Section Error Testing */}
       <div id="error-menu" className="mb-10">
         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4">
           Error Testing
