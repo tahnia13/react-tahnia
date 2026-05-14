@@ -16,7 +16,7 @@ export default function Orders() {
 
   return (
     <div id="orders-page">
-      <PageHeader title="Order" breadcrumb={["Dashboard", "Order List"]}>
+      <PageHeader title="Orders" breadcrumb={["Dashboard", "Order List"]}>
         <button
           onClick={() => navigate("/add-orders")}
           className="bg-hijau text-white px-6 py-2 rounded-lg hover:bg-emerald-600 font-bold shadow-md transition-all active:scale-95"
@@ -28,8 +28,8 @@ export default function Orders() {
       <div className="p-5">
         <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
           <div className="p-6 border-b border-gray-50">
-            <h2 className="text-xl font-bold text-slate-800">Order</h2>
-            <p className="text-gray-400 text-sm">Ini Halaman Order</p>
+            <h2 className="text-xl font-bold text-slate-800">Orders</h2>
+            <p className="text-gray-400 text-sm">Ini Halaman Orders</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left">

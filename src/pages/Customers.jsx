@@ -23,7 +23,7 @@ export default function Customers() {
 
   return (
     <div id="customers-page">
-      <PageHeader title="Customer" breadcrumb={["Dashboard", "Customer List"]}>
+      <PageHeader title="Customers" breadcrumb={["Dashboard", "Customer List"]}>
         <button
           onClick={() => navigate("/add-customers")}
           className="bg-hijau text-white px-6 py-2 rounded-lg hover:bg-emerald-600 font-bold shadow-md transition-all active:scale-95"
@@ -35,8 +35,8 @@ export default function Customers() {
       <div className="p-5">
         <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
           <div className="p-6 border-b border-gray-50">
-            <h2 className="text-xl font-bold text-slate-800">Customer</h2>
-            <p className="text-gray-400 text-sm">Ini Halaman Customer</p>
+            <h2 className="text-xl font-bold text-slate-800">Customers</h2>
+            <p className="text-gray-400 text-sm">Ini Halaman Customers</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left">
