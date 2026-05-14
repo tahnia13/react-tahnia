@@ -31,7 +31,7 @@ function App() {
           <Route path="/add-customers" element={<FormCustomer />} />
           
           {/* Tambahan Route sesuai latihan */}
-          <Route path="/products" element={<produk />} />
+          <Route path="/products" element={<Produk />} />
           <Route path="/products/:id" element={<ProductDetail />} />
 
           {/* Halaman Error Testing (Berada dalam MainLayout agar tetap ada Sidebar) */}
