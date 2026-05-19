@@ -17,6 +17,7 @@ const ErrorPage = React.lazy(() => import("./components/ErrorPage"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
+const Components = React.lazy(() => import("./pages/Components/components"));
 
 function App() {
   return (
@@ -29,10 +30,9 @@ function App() {
           <Route path="/add-orders" element={<FormOrder />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/add-customers" element={<FormCustomer />} />
-          
-          {/* Tambahan Route sesuai latihan */}
           <Route path="/products" element={<Produk />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/components" element={<Components />} />
 
           {/* Halaman Error Testing (Berada dalam MainLayout agar tetap ada Sidebar) */}
           <Route

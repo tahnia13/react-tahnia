@@ -2,11 +2,12 @@
   FaHome,
   FaShoppingCart,
   FaUsers,
-  FaPlus,
+  FaBox,
+  FaCubes,
   FaExclamationTriangle,
   FaLock,
   FaBan,
-  FaBox, // 1. TAMBAHKAN ICON FaBox
+  FaPlus,
 } from "react-icons/fa";
 import { NavLink, Link, useLocation } from "react-router-dom"; // 2. TAMBAHKAN Link DAN useLocation
 
@@ -76,6 +77,12 @@ export default function Sidebar() {
           </li>
         </ul>
       </div>
+      <li>
+  <NavLink to="/components" className={menuClass}>
+    <FaCubes className="text-xl" />
+    <span>Components</span>
+  </NavLink>
+</li>
 
       {/* Section Error Testing */}
       <div id="error-menu" className="mb-10">

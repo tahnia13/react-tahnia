@@ -1,7 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import PageHeader from "../components/PageHeader" // Pastikan import PageHeader
+import PageHeader from "../components/PageHeader"
+import Button from "./Components/Button"
+import Badge from "./Components/Badge"
+import Table from "./Components/Table"
 
 export default function ProductDetail() {
     const { id } = useParams()
@@ -34,22 +37,37 @@ export default function ProductDetail() {
         </div>
     )
 
+    const priceInIDR = product.price * 15000
+
+    const getCategoryBadgeType = (category) => {
+        if (category === "makeup") return "success";
+        if (category === "skincare") return "info";
+        return "primary";
+    };
+
+    // Data untuk tabel detail produk
+    const detailHeaders = ["Property", "Value"];
+    const detailData = [
+        { property: "Product Name", value: product.title },
+        { property: "Category", value: product.category },
+        { property: "Brand", value: product.brand },
+        { property: "Stock", value: `${product.stock} unit` },
+        { property: "Price (USD)", value: `$${product.price}` },
+        { property: "Price (IDR)", value: `Rp ${priceInIDR.toLocaleString('id-ID')}` },
+        { property: "Rating", value: product.rating || "N/A" },
+        { property: "Description", value: product.description || "No description available" },
+    ];
+
     return (
         <div id="product-detail-page">
-            {/* Header dengan Breadcrumb sesuai gambar referensi */}
             <PageHeader title="Product Detail" breadcrumb={["Dashboard", "Product List", product.title]}>
-                <button
-                    onClick={() => navigate("/products")}
-                    className="bg-white text-gray-600 border border-gray-200 px-6 py-2 rounded-lg hover:bg-gray-50 font-bold shadow-sm transition-all active:scale-95"
-                >
+                <Button type="secondary" onClick={() => navigate("/products")}>
                     Back to List
-                </button>
+                </Button>
             </PageHeader>
 
             <div className="p-5 flex justify-center">
-                {/* Card Detail Produk sesuai desain Hasil Akhir */}
-                <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden max-w-md w-full">
-                    {/* Container Gambar dengan aspek rasio yang bagus */}
+                <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden max-w-2xl w-full">
                     <div className="p-4">
                         <img
                             src={product.thumbnail}
@@ -58,32 +76,30 @@ export default function ProductDetail() {
                         />
                     </div>
 
-                    {/* Konten Detail */}
-                    <div className="p-8 pt-2 text-center">
-                        <h2 className="text-3xl font-extrabold text-slate-800 mb-4 tracking-tight">
+                    <div className="p-8 pt-2">
+                        <h2 className="text-3xl font-extrabold text-slate-800 mb-4 text-center tracking-tight">
                             {product.title}
                         </h2>
                         
-                        <div className="space-y-2 mb-6">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-gray-400 font-medium">Kategori:</span>
-                                <span className="text-hijau bg-green-50 px-3 py-1 rounded-full font-bold uppercase text-[10px]">
-                                    {product.category}
-                                </span>
-                            </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-gray-400 font-medium">Brand:</span>
-                                <span className="text-slate-700 font-bold">{product.brand}</span>
-                            </div>
-                        </div>
-
-                        {/* Harga dengan style Sedap Restaurant */}
-                        <div className="bg-slate-50 rounded-2xl p-4 border border-dashed border-gray-200">
-                            <p className="text-gray-400 text-xs uppercase font-bold tracking-widest mb-1">Total Price</p>
-                            <p className="text-3xl font-black text-slate-900">
-                                Rp {(product.price * 15000).toLocaleString('id-ID')}
-                            </p>
-                        </div>
+                        {/* Menggunakan komponen Table untuk menampilkan detail produk */}
+                        <Table headers={detailHeaders}>
+                            {detailData.map((item, index) => (
+                                <tr key={index} className="hover:bg-gray-50 transition-colors">
+                                    <td className="p-3 font-medium text-gray-700 border">
+                                        {item.property}
+                                    </td>
+                                    <td className="p-3 text-gray-600 border">
+                                        {item.property === "Category" ? (
+                                            <Badge type={getCategoryBadgeType(item.value)}>
+                                                {item.value}
+                                            </Badge>
+                                        ) : (
+                                            item.value
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </Table>
                     </div>
                 </div>
             </div>
