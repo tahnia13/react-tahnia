@@ -4,18 +4,18 @@ import Badge from "./Badge";
 import Avatar from "./Avatar";
 import Container from "./Container";
 import Footer from "./Footer";
-import Card from "../components/Card";
-import ProductCard from "../components/ProductCard";
-import Table from "../components/Table";
-import InputField from "../components/InputField";
-import TextArea from "../components/TextArea";
-import SelectField from "../components/SelectField";
-import Alert from "../components/Alert";
-import Loading from "../components/Loading";
-import Modal from "../components/Modal";
-import HeroSection from "../components/HeroSection";
-import FeatureSection from "../components/FeatureSection";
-import ProductSection from "../components/ProductSection";
+import Card from "./Card";                    // ← perbaikan
+import ProductCard from "./ProductCard";      // ← perbaikan
+import Table from "./Table";                  // ← perbaikan
+import InputField from "./InputField";        // ← perbaikan
+import TextArea from "./TextArea";            // ← perbaikan
+import SelectField from "./SelectField";      // ← perbaikan
+import Alert from "./Alert";                  // ← perbaikan
+import Loading from "./Loading";              // ← perbaikan
+import Modal from "./Modal";                  // ← perbaikan
+import HeroSection from "./HeroSection";      // ← perbaikan
+import FeatureSection from "./FeatureSection";// ← perbaikan
+import ProductSection from "./ProductSection";// ← perbaikan
 import { useState } from "react";
 
 export default function Components() {
