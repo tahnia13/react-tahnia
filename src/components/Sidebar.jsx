@@ -78,11 +78,17 @@ export default function Sidebar() {
         </ul>
       </div>
       <li>
-  <NavLink to="/components" className={menuClass}>
-    <FaCubes className="text-xl" />
-    <span>Components</span>
-  </NavLink>
-</li>
+        <li id="menu-6">
+          <NavLink to="/fitur-xyz" className={menuClass}>
+            <FaCubes className="text-xl" />
+            <span>Fitur XYZ</span>
+          </NavLink>
+        </li>
+        <NavLink to="/components" className={menuClass}>
+          <FaCubes className="text-xl" />
+          <span>Components</span>
+        </NavLink>
+      </li>
 
       {/* Section Error Testing */}
       <div id="error-menu" className="mb-10">
