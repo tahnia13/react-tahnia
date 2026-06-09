@@ -21,7 +21,7 @@ export default function Orders() {
     id: `ORD-99${i + 1}`,
     customer: ["Ahmad", "Siti", "Budi", "Dewi", "Eko"][i % 5],
     status: ["Pending", "Completed", "Cancelled"][i % 3],
-    price: Math.floor(Math.random() * 500000) + 50000,
+    price: 50000 + ((i * 98765) % 500000),
     date: "2026-04-23",
   }));
 

@@ -19,6 +19,7 @@ const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
 const Components = React.lazy(() => import("./pages/Components/components"));
 const FiturXYZ = React.lazy(() => import("./pages/FiturXYZ"));
+const Notes = React.lazy(() => import("./pages/Notes"));
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/components" element={<Components />} />
           <Route path="/fitur-xyz" element={<FiturXYZ />} />
-
+          <Route path="/Notes" element={<Notes />} />
           {/* Halaman Error Testing (Berada dalam MainLayout agar tetap ada Sidebar) */}
           <Route
             path="/error-400"

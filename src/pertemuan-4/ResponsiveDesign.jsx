@@ -47,7 +47,7 @@ function ResponsiveWidth() {
       
       <button 
         onClick={handleClick}
-        className="w-full px-4 py-2 bg-gradient-to-r from-red-500 to-blue-500 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-95 transform"
+        className="w-full px-4 py-2 bg-linear-to-r from-red-500 to-blue-500 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-95 transform"
       >
         {isAnimating ? " Animasi!" : " Klik untuk Animasi Kolom"}
       </button>
@@ -80,7 +80,7 @@ function ResponsiveLayout() {
           <button
             key={box.id}
             onClick={() => setActiveBox(box.id)}
-            className={`bg-gradient-to-r ${box.color} p-4 rounded-lg text-white text-center font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 transform ${
+            className={`bg-linear-to-r ${box.color} p-4 rounded-lg text-white text-center font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 transform ${
               activeBox === box.id ? 'ring-4 ring-yellow-400 scale-105' : ''
             }`}
           >
@@ -110,13 +110,13 @@ export default function ResponsiveDesign() {
   return (
     <div className="max-w-6xl mx-auto p-4 space-y-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Responsive Design Demo
         </h1>
         
         <button 
           onClick={() => setIsVisible(!isVisible)}
-          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 transform"
+          className="px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 transform"
         >
           {isVisible ? " Sembunyikan" : " Tampilkan"} Demo
         </button>

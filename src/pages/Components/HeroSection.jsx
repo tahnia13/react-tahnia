@@ -1,6 +1,6 @@
-export default function HeroSection({ title, subtitle, buttonText, image, onButtonClick }) {
+export default function HeroSection({ title, subtitle, buttonText, onButtonClick }) {
   return (
-    <div className="bg-gradient-to-r from-hijau to-emerald-600 text-white py-16 px-4 rounded-2xl">
+    <div className="bg-linear-to-r from-hijau to-emerald-600 text-white py-16 px-4 rounded-2xl">
       <div className="container mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
         <p className="text-lg md:text-xl mb-8 opacity-90">{subtitle}</p>

@@ -8,11 +8,21 @@
   FaLock,
   FaBan,
   FaPlus,
+  FaStickyNote,
 } from "react-icons/fa";
-import { NavLink, Link, useLocation } from "react-router-dom"; // 2. TAMBAHKAN Link DAN useLocation
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
-  const location = useLocation(); // 3. DEFINISIKAN location AGAR BISA DIGUNAKAN
+  // Menu definitions with icon component
+  const menus = [
+    { to: "/", label: "Dashboard", Icon: FaHome },
+    { to: "/orders", label: "Orders", Icon: FaShoppingCart },
+    { to: "/customers", label: "Customers", Icon: FaUsers },
+    { to: "/products", label: "Products", Icon: FaBox },
+    { to: "/fitur-xyz", label: "Fitur XYZ", Icon: FaCubes },
+    { to: "/components", label: "Components", Icon: FaCubes },
+    { to: "/notes", label: "Notes", Icon: FaStickyNote },
+  ];
 
   // Fungsi styling untuk menu NavLink
   const menuClass = ({ isActive }) =>
@@ -50,45 +60,16 @@ export default function Sidebar() {
           Main Menu
         </p>
         <ul id="menu-list" className="space-y-3">
-          <li>
-            <NavLink to="/" className={menuClass}>
-              <FaHome className="text-xl" />
-              <span>Dashboard</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/orders" className={menuClass}>
-              <FaShoppingCart className="text-xl" />
-              <span>Orders</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/customers" className={menuClass}>
-              <FaUsers className="text-xl" />
-              <span>Customers</span>
-            </NavLink>
-          </li>
-          {/* Menu Products dipindahkan ke dalam list agar rapi */}
-          <li>
-            <NavLink to="/products" className={menuClass}>
-              <FaBox className="text-xl" />
-              <span>Products</span>
-            </NavLink>
-          </li>
+          {menus.map((m) => (
+            <li key={m.to}>
+              <NavLink to={m.to} className={menuClass}>
+                <m.Icon className="text-xl" />
+                <span>{m.label}</span>
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
-      <li>
-        <li id="menu-6">
-          <NavLink to="/fitur-xyz" className={menuClass}>
-            <FaCubes className="text-xl" />
-            <span>Fitur XYZ</span>
-          </NavLink>
-        </li>
-        <NavLink to="/components" className={menuClass}>
-          <FaCubes className="text-xl" />
-          <span>Components</span>
-        </NavLink>
-      </li>
 
       {/* Section Error Testing */}
       <div id="error-menu" className="mb-10">

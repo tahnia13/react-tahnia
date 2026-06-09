@@ -127,7 +127,7 @@ export default function FiturXYZ() {
       </div>
 
       {/* 3. KOMPONEN CARD SHADCN/UI */}
-      <Card className="w-full md:w-[380px] bg-white border border-gray-100 shadow-sm rounded-2xl">
+      <Card className="w-full md:w-95 bg-white border border-gray-100 shadow-sm rounded-2xl">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-bold text-gray-900">Belajar shadcn/ui</CardTitle>

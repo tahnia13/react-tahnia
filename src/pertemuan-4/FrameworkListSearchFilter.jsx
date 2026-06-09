@@ -150,7 +150,7 @@ export default function FrameworkListSearchFilter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative group/btn flex items-center justify-center w-full py-4 rounded-2xl 
-                             bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm
+                             bg-linear-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm
                              overflow-hidden transition-all duration-300 
                              hover:shadow-[0_10px_20px_-10px_rgba(6,182,212,0.5)]
                              active:scale-95 group-active:translate-y-1"
@@ -173,7 +173,7 @@ export default function FrameworkListSearchFilter() {
                   </span>
 
                   <div
-                    className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                    className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent 
                                   -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"
                   />
                 </a>

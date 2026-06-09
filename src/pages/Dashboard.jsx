@@ -4,26 +4,14 @@ import QuickActionCard from "../components/QuickActionCard";
 import HeroSection from "./Components/HeroSection";
 import FeatureSection from "./Components/FeatureSection";
 import ProductSection from "./Components/ProductSection";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import productsData from "../data/products.json";
 
 export default function Dashboard() {
-    const [stats, setStats] = useState({
-        totalOrders: 0,
-        totalDelivered: 0,
-        totalCanceled: 0,
-        totalRevenue: 0,
-        totalCustomers: 0,
-        totalProducts: 0,
-        lowStockProducts: 0,
-        revenueGrowth: 12.5,
-        ordersGrowth: 8.3
-    });
-
-    useEffect(() => {
+    const stats = useMemo(() => {
         const orders = Array.from({ length: 30 }, (_, i) => ({
             status: ["Pending", "Completed", "Cancelled"][i % 3],
-            price: Math.floor(Math.random() * 500000) + 50000,
+            price: 50000 + ((i * 1234567) % 500000),
         }));
 
         const totalOrders = orders.length;
@@ -37,7 +25,7 @@ export default function Dashboard() {
         const totalProducts = productsData.length;
         const lowStockProducts = productsData.filter(p => p.stock < 10).length;
 
-        setStats({
+        return {
             totalOrders,
             totalDelivered,
             totalCanceled,
@@ -47,7 +35,7 @@ export default function Dashboard() {
             lowStockProducts,
             revenueGrowth: 12.5,
             ordersGrowth: 8.3
-        });
+        };
     }, []);
 
     // Data untuk FeatureSection
@@ -59,12 +47,7 @@ export default function Dashboard() {
     ];
 
     // Data untuk ProductSection
-    const makeupProducts = productsData.filter(p => p.category === "makeup").slice(0, 3);
-    const productItems = makeupProducts.map(product => ({
-        name: product.title,
-        price: `Rp ${(product.price * 15000).toLocaleString()}`,
-        image: `https://picsum.photos/id/${100 + product.id}/300/200`
-    }));
+    
 
     // Data status order
     const statusData = [
@@ -266,7 +249,7 @@ export default function Dashboard() {
                         buttonText="Lihat Rute"
                     />
                     
-                    <div className="bg-gradient-to-r from-hijau to-emerald-600 rounded-2xl p-5 text-white">
+                    <div className="bg-linear-to-r from-hijau to-emerald-600 rounded-2xl p-5 text-white">
                         <h4 className="font-semibold mb-2">Today's Summary</h4>
                         <div className="flex justify-between mt-3">
                             <div>
