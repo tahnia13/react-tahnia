@@ -1,11 +1,25 @@
 ﻿import { useState } from "react";
-import { FaBell, FaSearch } from "react-icons/fa";
+import { FaBell, FaSearch, FaSignOutAlt } from "react-icons/fa";
 import { FcAreaChart } from "react-icons/fc";
 import { SlSettings } from "react-icons/sl";
 import SearchModal from "../components/SearchModal";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { profile, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   return (
     <>
@@ -77,27 +91,57 @@ export default function Header() {
           {/* Divider - Sembunyi di mobile jika terlalu sempit */}
           <div className="hidden sm:block h-8 w-px bg-slate-200 mx-1" />
 
-          {/* Profile Section */}
-          <div
-            id="profile-container"
-            className="flex items-center gap-2 md:gap-3 cursor-pointer"
-          >
-            {/* Nama hanya muncul di layar medium ke atas */}
-            <span
-              id="profile-text"
-              className="hidden lg:block text-sm whitespace-nowrap"
+          {/* Profile Section with Dropdown */}
+          <div id="profile-container" className="relative">
+            <button
+              onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              className="flex items-center gap-2 md:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
             >
-              Hello, <span className="font-bold">Tahnia Siti Aisah</span>
-            </span>
+              {/* Nama hanya muncul di layar medium ke atas */}
+              <span
+                id="profile-text"
+                className="hidden lg:block text-sm whitespace-nowrap"
+              >
+                Hello, <span className="font-bold">{profile?.full_name || "User"}</span>
+              </span>
 
-            <div className="rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 p-[2px] flex-shrink-0 transition-transform active:scale-95">
-              <img
-                id="profile-avatar"
-                src="/img/cewekCantik.png"
-                alt="Profile avatar"
-                className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-white"
-              />
-            </div>
+              <div className="rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 p-[2px] flex-shrink-0 transition-transform active:scale-95">
+                <img
+                  id="profile-avatar"
+                  src="/img/cewekCantik.png"
+                  alt="Profile avatar"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-white"
+                />
+              </div>
+            </button>
+
+            {/* Dropdown Menu */}
+            {profileMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50">
+                <div className="px-4 py-3 border-b border-gray-100">
+                  <p className="text-sm font-semibold text-gray-800">{profile?.full_name || "User"}</p>
+                  <p className="text-xs text-gray-500">{profile?.email}</p>
+                  <p className="text-xs text-green-600 font-medium mt-1">
+                    {profile?.role === "admin" ? "🔐 Administrator" : "👤 Member"}
+                  </p>
+                </div>
+
+                {profile?.role === "member" && (
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-xs text-gray-500">Poin: <span className="font-bold text-green-600">{profile?.points_balance || 0}</span></p>
+                    <p className="text-xs text-gray-500">Tier: <span className="font-bold text-green-600">{profile?.tier || "Bronze"}</span></p>
+                  </div>
+                )}
+
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors text-sm font-medium"
+                >
+                  <FaSignOutAlt className="text-lg" />
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

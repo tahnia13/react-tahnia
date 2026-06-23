@@ -3,16 +3,18 @@ import { Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import Loading from "./components/Loading";
+import ProtectedRoute from "./components/ProtectedRoute";
 import React, { Suspense } from "react";
 
-// PINDAHKAN LAZY IMPORT KE LUAR FUNGSI APP
+// LAZY IMPORTS - All pages
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const FormOrder = React.lazy(() => import("./pages/FormOrder"));
 const Orders = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
 const FormCustomer = React.lazy(() => import("./pages/FormCustomer"));
-const Produk = React.lazy(() => import("./pages/produk")); // Halaman List Produk
+const Produk = React.lazy(() => import("./pages/produk"));
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
+const Cart = React.lazy(() => import("./pages/Cart"));
 const ErrorPage = React.lazy(() => import("./components/ErrorPage"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -21,24 +23,76 @@ const Components = React.lazy(() => import("./pages/Components/components"));
 const FiturXYZ = React.lazy(() => import("./pages/FiturXYZ"));
 const Notes = React.lazy(() => import("./pages/Notes"));
 
-
 function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        {/* Route dengan Sidebar/Navbar (MainLayout) */}
-        <Route element={<MainLayout />}>
+        {/* Protected Routes - With Sidebar/Navbar (MainLayout) */}
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={["admin", "member"]}>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/" element={<Dashboard />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/add-orders" element={<FormOrder />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/add-customers" element={<FormCustomer />} />
+          
+          {/* Admin Only Routes - Orders Management */}
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-orders"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <FormOrder />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Only Routes - Customers Management */}
+          <Route
+            path="/customers"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <Customers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-customers"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <FormCustomer />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Products - All authenticated users can view */}
           <Route path="/products" element={<Produk />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+
+          {/* Member Only Routes - Shopping */}
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute allowedRoles={["member"]}>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Common Routes */}
           <Route path="/components" element={<Components />} />
           <Route path="/fitur-xyz" element={<FiturXYZ />} />
-          <Route path="/Notes" element={<Notes />} />
-          {/* Halaman Error Testing (Berada dalam MainLayout agar tetap ada Sidebar) */}
+          <Route path="/notes" element={<Notes />} />
+
+          {/* Error Pages */}
           <Route
             path="/error-400"
             element={
@@ -83,7 +137,7 @@ function App() {
           />
         </Route>
 
-        {/* Route Tanpa Sidebar/Navbar (AuthLayout) */}
+        {/* Auth Routes - Without Sidebar/Navbar (AuthLayout) */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

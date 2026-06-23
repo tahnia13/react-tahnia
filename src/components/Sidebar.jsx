@@ -9,20 +9,41 @@
   FaBan,
   FaPlus,
   FaStickyNote,
+  FaHistory,
+  FaGift,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Sidebar() {
-  // Menu definitions with icon component
-  const menus = [
+  const { profile } = useAuth();
+  const isAdmin = profile?.role === "admin";
+  const isMember = profile?.role === "member";
+
+  // Admin menu
+  const adminMenus = [
     { to: "/", label: "Dashboard", Icon: FaHome },
-    { to: "/orders", label: "Orders", Icon: FaShoppingCart },
     { to: "/customers", label: "Customers", Icon: FaUsers },
     { to: "/products", label: "Products", Icon: FaBox },
-    { to: "/fitur-xyz", label: "Fitur XYZ", Icon: FaCubes },
+    { to: "/orders", label: "Orders", Icon: FaShoppingCart },
+  ];
+
+  // Member menu
+  const memberMenus = [
+    { to: "/", label: "Dashboard", Icon: FaHome },
+    { to: "/products", label: "Shop", Icon: FaBox },
+    { to: "/cart", label: "My Cart", Icon: FaShoppingCart },
+    { to: "/orders", label: "My Orders", Icon: FaHistory },
+  ];
+
+  // Common menu for all
+  const commonMenus = [
     { to: "/components", label: "Components", Icon: FaCubes },
     { to: "/notes", label: "Notes", Icon: FaStickyNote },
   ];
+
+  // Select menu based on role
+  const menus = isAdmin ? adminMenus : isMember ? memberMenus : [];
 
   // Fungsi styling untuk menu NavLink
   const menuClass = ({ isActive }) =>
@@ -50,26 +71,56 @@ export default function Sidebar() {
           </b>
         </span>
         <span id="logo-subtitle" className="font-semibold text-gray-400">
-          Modern Admin Dashboard
+          {isAdmin ? "Admin Dashboard" : isMember ? "Member Portal" : "Dashboard"}
         </span>
       </div>
 
+      {/* Member Points Info */}
+      {isMember && profile && (
+        <div className="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+          <p className="text-xs text-gray-600 mb-2">Your Status</p>
+          <p className="text-lg font-bold text-green-600 mb-1">{profile.tier}</p>
+          <p className="text-xs text-gray-600">Points: <span className="font-bold text-green-600">{profile.points_balance}</span></p>
+        </div>
+      )}
+
       {/* List Menu Utama */}
-      <div id="sidebar-menu" className="mb-6">
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4">
-          Main Menu
-        </p>
-        <ul id="menu-list" className="space-y-3">
-          {menus.map((m) => (
-            <li key={m.to}>
-              <NavLink to={m.to} className={menuClass}>
-                <m.Icon className="text-xl" />
-                <span>{m.label}</span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {menus.length > 0 && (
+        <div id="sidebar-menu" className="mb-6">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4">
+            {isAdmin ? "Admin Menu" : "Member Menu"}
+          </p>
+          <ul id="menu-list" className="space-y-3">
+            {menus.map((m) => (
+              <li key={m.to}>
+                <NavLink to={m.to} className={menuClass}>
+                  <m.Icon className="text-xl" />
+                  <span>{m.label}</span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Common Menu */}
+      {commonMenus.length > 0 && (
+        <div id="common-menu" className="mb-6">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-4">
+            Other
+          </p>
+          <ul id="common-menu-list" className="space-y-3">
+            {commonMenus.map((m) => (
+              <li key={m.to}>
+                <NavLink to={m.to} className={menuClass}>
+                  <m.Icon className="text-xl" />
+                  <span>{m.label}</span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Section Error Testing */}
       <div id="error-menu" className="mb-10">

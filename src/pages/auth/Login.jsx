@@ -1,12 +1,12 @@
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdErrorOutline } from "react-icons/md";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
-  /* navigate, state & handleChange*/
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [dataForm, setDataForm] = useState({
@@ -22,41 +22,39 @@ export default function Login() {
     });
   };
 
-  /* process form */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    setError(false);
+    try {
+      setLoading(true);
+      setError("");
 
-    axios
-      .post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      })
-      .then((response) => {
-        // Jika status bukan 200, tampilkan pesan error
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
-
-        // Redirect ke dashboard jika login sukses
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response) {
-          setError(err.response.data.message || "An error occurred");
-        } else {
-          setError(err.message || "An unknown error occurred");
-        }
-      })
-      .finally(() => {
+      // Validate input
+      if (!dataForm.email || !dataForm.password) {
+        setError("Email and password are required");
         setLoading(false);
-      });
+        return;
+      }
+
+      const result = await login(dataForm.email, dataForm.password);
+
+      if (result.error) {
+        setError(result.error.message || "Login failed. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      // Login successful - redirect to dashboard
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message || "An unexpected error occurred");
+      setLoading(false);
+    }
   };
 
-  /* error & loading status */
   const errorInfo = error ? (
     <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
       <MdErrorOutline className="text-red-600 me-2 text-lg" />
@@ -66,7 +64,7 @@ export default function Login() {
 
   const loadingInfo = loading ? (
     <div className="bg-gray-200 mb-5 p-5 text-sm rounded flex items-center">
-      <AiOutlineLoading3Quarters ImSpinner2 className="me-2 animate-spin" />
+      <AiOutlineLoading3Quarters className="me-2 animate-spin" />
       Mohon Tunggu...
     </div>
   ) : null;
@@ -87,13 +85,14 @@ export default function Login() {
             Email Address
           </label>
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
+            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
             placeholder="you@example.com"
+            value={dataForm.email}
             onChange={handleChange}
+            disabled={loading}
           />
         </div>
         <div className="mb-6">
@@ -104,20 +103,34 @@ export default function Login() {
             type="password"
             name="password"
             id="password"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
+            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
             placeholder="********"
+            value={dataForm.password}
             onChange={handleChange}
+            disabled={loading}
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4
-                        rounded-lg transition duration-300"
+          disabled={loading}
+          className="w-full bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
+
+      <p className="text-center text-sm text-gray-500 mt-6">
+        Don't have an account?{" "}
+        <Link to="/register" className="text-green-500 hover:text-green-600 font-medium">
+          Register here
+        </Link>
+      </p>
+
+      <p className="text-center text-sm text-gray-500 mt-3">
+        <Link to="/forgot" className="text-green-500 hover:text-green-600 font-medium">
+          Forgot Password?
+        </Link>
+      </p>
     </div>
   );
 }
